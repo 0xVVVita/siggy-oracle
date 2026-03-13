@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Backgrounds - dark malachite tones */
+  --bg: #020c09;
+  --bg2: #041410;
+  --bg3: #061a14;
+  
+  /* Main neon cyan-green */
+  --green: #00ffcc;
+  --green-dim: rgba(0, 255, 200, 0.5);
+  --green-faint: rgba(0, 255, 200, 0.07);
+  --green-border: rgba(0, 255, 200, 0.22);
+  
+  /* Text - cold mint */
+  --text: #a0e8d0;
+  --text-dim: rgba(160, 232, 208, 0.5);
+  
+  /* Legacy support */
+  --neon-green: #00ffcc;
+  --neon-green-dim: rgba(0, 255, 200, 0.5);
+  --neon-green-light: rgba(0, 255, 200, 0.3);
+  --neon-orange: #ffaa00;
+  --mystic-purple: #6b21a8;
+  --mystic-purple-dark: #3c0f6b;
+  --mystic-gold: #00ffcc;
+  --mystic-gold-dim: rgba(0, 255, 200, 0.5);
+  --moon-silver: #c0c0c0;
+  --bg-primary: #020c09;
+  --bg-secondary: #041410;
+  --bg-panel: #061a14;
+  --text-primary: #a0e8d0;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Scanline effect over the entire UI */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, 0.015) 2px,
+    rgba(0, 255, 136, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-green-dim);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green);
+}
+
+/* Animations */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 5px var(--neon-green-dim); }
+  50%       { box-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green-dim); }
+}
+
+@keyframes mysticFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes runeGlow {
+  0%, 100% { text-shadow: 0 0 5px var(--green-dim); opacity: 0.6; }
+  50% { text-shadow: 0 0 15px var(--green); opacity: 1; }
+}
+
+@keyframes fogDrift {
+  0% { transform: translateX(0) translateY(0); opacity: 0.3; }
+  50% { transform: translateX(20px) translateY(-10px); opacity: 0.5; }
+  100% { transform: translateX(0) translateY(0); opacity: 0.3; }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Utility classes */
+.neon-text {
+  color: var(--green);
+  text-shadow: 0 0 5px var(--green-dim);
+}
+
+.neon-border {
+  border: 1px dashed var(--green-dim);
+}
+
+.glow-border {
+  border: 1px solid var(--green-border);
+  box-shadow: 0 0 10px var(--green-dim);
+}
+
+.animate-fade-in {
+  animation: fadeInSlide 0.3s ease-out;
+}
+
+.mystic-float {
+  animation: mysticFloat 3s ease-in-out infinite;
+}
+
+.rune-glow {
+  animation: runeGlow 2s ease-in-out infinite;
+}
+
+.fog-layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 255, 200, 0.08) 0%, transparent 70%);
+  animation: fogDrift 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.star-field {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(0, 255, 200, 0.8), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 200, 0.6), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(0, 255, 200, 0.7), transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(0, 255, 200, 0.5), transparent),
+    radial-gradient(1px 1px at 160px 120px, rgba(0, 255, 200, 0.6), transparent);
+  background-size: 200px 150px;
+  background-repeat: repeat;
+  animation: starTwinkle 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
