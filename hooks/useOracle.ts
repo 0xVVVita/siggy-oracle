@@ -211,5 +211,6 @@ export function useOracle() {
     networkStatus,
     sendMessage,
     clearHistory,
+    isLoadingGreeting,
   };
 }
